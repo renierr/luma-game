@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Luma Well</title>
+  <meta name="theme-color" content="#07131b">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="app">
+    <header id="hud">
+      <div class="brand"><span>LUMA</span> WELL<small>CALM ORBITAL MERGES</small></div>
+      <div class="stats">
+        <div class="stat score"><span>SCORE</span><strong id="score">0</strong></div>
+        <div class="stat best"><span>BEST</span><strong id="best">0</strong></div>
+        <div class="stat"><span>MERGES</span><strong id="merges">0</strong></div>
+        <div class="stat"><span>STAGE</span><strong id="stageNumber">1</strong></div>
+      </div>
+      <div class="tools">
+        <button id="powersButton" class="icon-button" title="Power-ups" aria-label="Open power-ups">&#10022;<b id="charges">1</b></button>
+        <button id="newGameButton" class="icon-button" title="Start a new game" aria-label="Start a new game">&#8635;</button>
+        <button id="settingsButton" class="icon-button" title="Settings" aria-label="Settings">&#9881;</button>
+      </div>
+    </header>
+    <section id="boardWrap">
+      <canvas id="board" aria-label="Luma Well game board"></canvas>
+      <div id="toast" role="status"></div>
+    </section>
+  </main>
+
+  <div id="modal" class="modal hidden" aria-hidden="true"><section class="sheet" id="sheet"></section></div>
+  <script src="js/game.js"></script>
+  <script>
+  if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+    navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).catch(() => {});
+  }
+  </script>
+</body>
+</html>

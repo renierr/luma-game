@@ -1,0 +1,12 @@
+{
+  "id": "./",
+  "name": "Luma Well",
+  "short_name": "Luma Well",
+  "description": "Capture compatible orbiting matter to grow your planet.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#07131b",
+  "theme_color": "#07131b",
+  "icons": [{"src":"favicon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
