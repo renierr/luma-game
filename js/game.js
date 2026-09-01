@@ -10,7 +10,7 @@ const DIRECTION_LABELS = {none:'Off', north:'Up', northEast:'Up right', east:'Ri
 const DEFAULT_SETTINGS = {sound:true, haptics:true, easy:false, unlimited:false, captureTime:1.5, touchDirection:'none', touchDistance:60};
 let settings = {...DEFAULT_SETTINGS, ...read('luma-well-settings', {})};
 let game = loadGame() || freshGame();
-let dpr = 1, width = 1, height = 1, scale = 1, last = performance.now(), active = !document.hidden, toastTimer, audio;
+let dpr = 1, width = 1, height = 1, scale = 1, last = performance.now(), active = document.visibilityState === 'visible' && document.hasFocus(), toastTimer, audio;
 
 function read(key, fallback) { try { return JSON.parse(localStorage.getItem(key)) || fallback; } catch { return fallback; } }
 function write(key, value) { localStorage.setItem(key, JSON.stringify(value)); }
@@ -114,5 +114,11 @@ $('modal').addEventListener('input', e => {
   write('luma-well-settings', settings);
   $('distanceText').textContent = settings.touchDistance + 'px offset';
 });
-window.addEventListener('resize',resize);document.addEventListener('visibilitychange',()=>{active=!document.hidden;if(!active)saveGame();last=performance.now();});window.addEventListener('pagehide',saveGame);resize();
+function syncActivity() {
+  active = document.visibilityState === 'visible' && document.hasFocus();
+  if (!active) saveGame();
+  // Discard elapsed background time so the simulation restarts from this frame.
+  last = performance.now();
+}
+window.addEventListener('resize',resize);document.addEventListener('visibilitychange',syncActivity);window.addEventListener('focus',syncActivity);window.addEventListener('blur',syncActivity);window.addEventListener('pagehide',saveGame);resize();
 function frame(now){requestAnimationFrame(frame);const dt=Math.min(.25,(now-last)/1000);last=now;if(active)advance(dt);draw();}requestAnimationFrame(frame);
