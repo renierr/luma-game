@@ -4,6 +4,9 @@ A dependency-free browser port of ToolLab's Luma Well game. Capture compatible
 orbiting matter, merge it into the central planet, and continue growing through
 an endless sequence of stages.
 
+## Play online
+https://renierr.github.io/luma-game/
+
 ## Run locally
 
 Serve this folder with any static web server, for example:
